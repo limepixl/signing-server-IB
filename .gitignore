@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/stefan_eksperimenti/NotaryCryptographicService/.vs
+/stefan_eksperimenti/NotaryCryptographicService/NotaryCryptographicService/bin/Debug/net6.0
+/stefan_eksperimenti/NotaryCryptographicService/NotaryCryptographicService/obj
