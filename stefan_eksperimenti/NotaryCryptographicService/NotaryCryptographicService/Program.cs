@@ -56,12 +56,13 @@ namespace NotaryCryptographicService
     {
         static void Main(string[] args)
         {
+            // The count of notary servers that need to verify
+            // a signature in order to be 
             const uint THRESHOLD_COUNT = 2;
 
             String message_to_be_signed = "Test Message";
             String proxy_ID = "proxy112312";
             long timestamp = DateTimeOffset.Now.ToUnixTimeSeconds();
-
             byte[] bytes_to_sign = NotaryServer.ConvertTripleToBytes(message_to_be_signed, proxy_ID, timestamp);
 
             NotaryServer[] servers = { new NotaryServer(), new NotaryServer(), new NotaryServer() };
@@ -73,6 +74,11 @@ namespace NotaryCryptographicService
                 signatures.Add(signature);
             }
 
+            // Above this line is the Proxy server's job
+            // Below this line is the Notary server's job
+
+            // Verifying signatures (proxy needs to know order of notaries)
+            // TODO: actually get the bytes and split them in n different parts.
             uint count = 0;
             for(int i = 0; i < 3; i++)
             {
