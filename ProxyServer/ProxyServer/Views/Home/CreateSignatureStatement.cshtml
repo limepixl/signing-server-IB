@@ -1,0 +1,16 @@
+﻿@model ProxyServer.Models.SignatureStatement
+
+@{
+    ViewData["Title"] = "CreateSignatureStatement";
+}
+
+<h1>CreateSignatureStatement</h1>
+
+<p>User Id</p>
+<p>@Model.Id</p>
+<p>Username</p>
+<p>@Model.Username</p>
+<p>Message Digest</p>
+<p>@Model.MessageDigest</p>
+<p>DateTime</p>
+<p>@Model.SignedOn.ToString()</p>

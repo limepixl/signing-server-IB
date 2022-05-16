@@ -1,13 +1,16 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using ProxyServer.Models;
 
 namespace ProxyServer.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
+   
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
+        public DbSet<ProxyServer.Models.SignatureStatement>? SignatureStatement { get; set; }
     }
 }

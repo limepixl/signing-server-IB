@@ -2,11 +2,13 @@
     ViewData["Title"] = "Home";
 }
 
+<div id="body" class="d-flex">
+<div id="main">
 <div class="text-center">
     <h1 class="display-4">Delegated Signing Server</h1>
-    <p>Register and give permission to the server to sign documents on your behalf, using multiple Notary servers for redundancy and availability!</p>
+    <p class="text-dark">Register and give permission to the server to sign documents on your behalf, using multiple Notary servers for redundancy and availability!</p>
 </div>
-<div class="container mt-4">
+<div class="container mt-4 text-center">
     <b>Step 1</b>: Register with a username and password
     <br />
     <b>Step 2</b>: Upload your document and receive a valid signature that can be verified by anyone
@@ -14,13 +16,15 @@
     <b>Step 3</b>: If you need to verify a signature, upload it alongside the document and know if it's Valid
 </div>
 
+<div class="container mt-4 d-flex justify-content-between text-center">
 <div class="container mt-4">
-    <form action="/Sign">
-        <input class="btn btn-primary" type="submit" value="Go to Signing Page" />
-    </form>
+        <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="UploadFile">Upload File for Signing</a>
 </div>
-<div class="container mt-2">
-    <form action="/Verify">
-        <input class="btn btn-primary" type="submit" value="Go to Verification Page" />
-    </form>
+<div class="container mt-4">
+        <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="/">Verify File</a>
 </div>
+</div>
+</div>
+</div>
+
+
