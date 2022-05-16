@@ -9,7 +9,7 @@ namespace ProxyServer.Models
         [Key]
         public int Id{ get; set; }
         [NotMapped]
-        public IFormFile Files{ get; set; }
+        public IFormFile[] Files{ get; set; }
         public string MessageDigest { get; set; }
         public string UserId { get; set; }
         public string Username { get; set; }

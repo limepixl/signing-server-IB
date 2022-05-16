@@ -11,3 +11,5 @@
 /ProxyServer/.vs/ProxyServer
 /ProxyServer/ProxyServer/bin/Debug/net6.0
 /ProxyServer/ProxyServer/obj
+.vscode/tasks.json
+.vscode/launch.json
