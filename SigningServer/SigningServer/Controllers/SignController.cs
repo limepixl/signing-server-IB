@@ -19,6 +19,12 @@ namespace ProxyServer.Controllers
             _context = context;
             _logger = logger;
             RSA = new RSACryptoServiceProvider();
+
+            ProxyServer.Models.ServerKeyPair keypair = _context.ServerKeyPair.ToList()[0];
+            string publicKey = keypair.PublicKeyOnly;
+            string privatePublicKeys = keypair.PrivatePublicKeyPair;
+
+            RSA.FromXmlString(privatePublicKeys);
         }
 
         public IActionResult Index()

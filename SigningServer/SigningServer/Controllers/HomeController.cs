@@ -12,13 +12,27 @@ namespace ProxyServer.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
-
         private readonly ILogger<HomeController> _logger;
+        private bool keys_generated = false;
 
         public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
         {
             _logger = logger;
             _context = context;
+
+            if (!keys_generated && _context.ServerKeyPair.Count() == 0)
+            {
+                CspParameters cp = new CspParameters();
+                cp.KeyContainerName = "ServerRSAKeyPairContainer";
+                RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(cp);
+
+                ServerKeyPair keys = new ServerKeyPair();
+                keys.PrivatePublicKeyPair = rsa.ToXmlString(true);
+                keys.PublicKeyOnly = rsa.ToXmlString(false);
+                _context.ServerKeyPair.Add(keys);
+                _context.SaveChanges();
+                keys_generated = true;
+            }
         }
 
         public IActionResult Index()
