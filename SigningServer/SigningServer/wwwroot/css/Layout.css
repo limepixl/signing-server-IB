@@ -1,0 +1,43 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Koulen&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
+/*
+    b-4l0b5aw0aq - Home/Index
+    #1abc9c za accents
+*/
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    font-family: 'Inconsolata', monospace;
+    background-image: radial-gradient(circle, #1edcb6, #1dd6b1, #1dd0ac, #1ccaa7, #1bc4a2, #17bb9c, #14b196, #12a890, #109987, #128a7d, #157b72, #186d67);
+    font-size: medium;
+}
+
+#main_content{
+    min-height: 100%;
+    align-items: center;
+}
+
+.navbar-brand {
+    font-family: 'Koulen', cursive;
+    color: gray;
+    font-weight: bold;
+    font-size: xx-large;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: #6cf;
+}
+.footer .container {
+    height: 60px;
+    margin-top: 10px;
+}
+
+
+
+
