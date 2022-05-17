@@ -1,0 +1,27 @@
+﻿#body {
+    height: 75vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    background-color: azure;
+    border-radius: 3%;
+    font-size: larger;
+}
+
+#body h1 {
+    margin-bottom: 80px;
+    font-weight: 700;
+}
+
+#body .steps{
+    font-weight: bold;
+    color: #1abc9c;
+}
+
+#body .btn-primary{
+    font-weight: bold;
+    color: #fff;
+    background-color: #212529;
+    border-color: #212529;
+}

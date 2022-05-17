@@ -4,11 +4,11 @@ html {
 
 @media (min-width: 768px) {
   html {
-    font-size: 16px;
+    font-size: medium;
   }
 }
 
-html {
+/*html {
   position: relative;
   min-height: 100%;
 }
@@ -16,6 +16,7 @@ html {
 body {
   margin-bottom: 60px;
 }
+<<<<<<< Updated upstream
 
 .footer {
   margin-top: 200px;
@@ -76,3 +77,4 @@ body {
   margin-bottom: 1em;
   text-align: center;
 }
+
