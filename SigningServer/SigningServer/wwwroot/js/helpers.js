@@ -23,7 +23,7 @@ async function hash(string) {
     let encoder = new TextEncoder();
     let bytes = encoder.encode(string)
     let hashed = await crypto.subtle.digest("SHA-256", bytes);
-    return hashed
+    return btoa(String.fromCharCode(...new Uint8Array(hashed)))
 }
 
 export { encode, hash }

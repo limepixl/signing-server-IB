@@ -20,8 +20,12 @@ document.getElementById("verifyButton").addEventListener("click", async (event) 
     let promises = [];
 
     unzipped.forEach(f => {
+        if(f.name == 'signature.nashsvet')
+            return
         promises.push(unzipped.file(f).async("base64"));
     })
+    
+    let signature = await unzipped.file("signature.nashsvet").async("string")
 
     let encoded = (await Promise.all(promises)).join()
 
@@ -29,13 +33,11 @@ document.getElementById("verifyButton").addEventListener("click", async (event) 
 
     let res = await fetch("/Verify/RequestVerification", {
         method: "POST",
-        body: hashed
+        body: JSON.stringify({ hashed, signature })
     })
 
     if(res.status != 200 || res.redirected)
         return;
 
-    let signature = (await res.text()) || "miki milane"
-
-    console.log(signature)
+    console.log(await res.text())
 })

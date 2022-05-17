@@ -15,6 +15,19 @@ namespace ProxyServer.Controllers
         [HttpPost]
         public string RequestVerification(string content) {
             
+            /* 
+                dobiva json object od oblik
+
+                {
+                    "hashed": hashot od fajlovite vnatre vo zipot (bez signature fileot)
+                    "signature": contents na signature fajlot
+                }
+
+                treba da vrati dali se poklopuvaat
+                kako tochno toa ke se dogg otposle
+
+            */
+
             return "UBIEC";
         }
     }

@@ -10,10 +10,18 @@ namespace ProxyServer.Controllers
         {
             return View();
         }
-        
+
         // [Authorize]
         [HttpPost]
         public string RequestSignature(string content) {
+
+            /*
+
+                dobiva string shto e hashot
+
+                treba da go potpishe i vrati potpisot kako string (base64 oblik)
+            
+            */
             
             return "hahaahha";
         }
