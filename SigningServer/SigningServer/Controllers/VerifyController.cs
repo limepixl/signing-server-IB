@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Cryptography;
 using ProxyServer.Data;
+using Newtonsoft.Json.Linq;
+using System.Text;
+using ProxyServer.Models;
 
 namespace ProxyServer.Controllers
 {
@@ -29,24 +32,56 @@ namespace ProxyServer.Controllers
             return View();
         }
 
+        public IActionResult VerifyResult(string statement)
+        {
+            ViewBag.MainNav = statement;
+            _logger.Log(LogLevel.Information, statement.ToString());
+            return View();
+        }
+
         // [Authorize]
         [HttpPost]
-        public string RequestVerification(string content) {
+        public IActionResult RequestVerification() {
+            StreamReader bodyStream = new StreamReader(HttpContext.Request.Body);
+            Task<string> bodyText = bodyStream.ReadToEndAsync();
+            bodyText.Wait();
+
+            string content = bodyText.Result;
+
+            JObject json = JObject.Parse(content);
+            string digest = (string)json["hashed"];
+            string signature = (string)json["signature"];
+            // _logger.Log(LogLevel.Information, "Digest: " + digest);
+            // _logger.Log(LogLevel.Information, "Signature: " + signature);
+
+            string id = _context.Users.Where(user => user.UserName == User.Identity.Name).SingleOrDefault().Id;
+
+            var signatureStatement = _context.SignatureStatement.Where(s => s.UserId == id && s.MessageDigest == digest);
+
+            UnicodeEncoding byte_converter = new UnicodeEncoding();
+            byte[] digest_bytes = byte_converter.GetBytes(digest);
+            byte[] signed_digest = RSA.SignData(digest_bytes, SHA256.Create());
+
+            byte[] ID_bytes = byte_converter.GetBytes(id);
+            byte[] final_signature = new byte[signed_digest.Length + ID_bytes.Length];
+            Buffer.BlockCopy(signed_digest, 0, final_signature, 0, signed_digest.Length);
+            Buffer.BlockCopy(ID_bytes, 0, final_signature, signed_digest.Length, ID_bytes.Length);
             
-            /* 
-                dobiva json object od oblik
+            if (Equals(Convert.ToBase64String(final_signature), signature))
+            {
+                string statement = Newtonsoft.Json.JsonConvert.SerializeObject(signatureStatement);
+                _logger.Log(LogLevel.Information, "VERIFIED");
+                return RedirectToAction("VerifyResult", new RouteValueDictionary( 
+                    new { 
+                        controller = "VerifyController", 
+                        action = "VerifyResult",
+                        statement = statement
+                    }
+                ));
+            }
 
-                {
-                    "hashed": hashot od fajlovite vnatre vo zipot (bez signature fileot)
-                    "signature": contents na signature fajlot
-                }
-
-                treba da vrati dali se poklopuvaat
-                kako tochno toa ke se dogg otposle
-
-            */
-
-            return "UBIEC";
+            _logger.Log(LogLevel.Information, "NOT VERIFIED");
+            return RedirectToAction("Index");
         }
     }
 }

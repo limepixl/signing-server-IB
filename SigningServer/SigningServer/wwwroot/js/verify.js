@@ -26,7 +26,7 @@ document.getElementById("verifyButton").addEventListener("click", async (event) 
     let promises = [];
 
     unzipped.forEach(f => {
-        if(f.name == 'signature.nashsvet')
+        if(f == 'signature.nashsvet')
             return
         promises.push(unzipped.file(f).async("base64"));
     })
@@ -37,6 +37,9 @@ document.getElementById("verifyButton").addEventListener("click", async (event) 
 
     let hashed = await hash(encoded)
 
+    // console.log("encoded: " + encoded);
+    // console.log("hashed: " + hashed);
+
     let res = await fetch("/Verify/RequestVerification", {
         method: "POST",
         body: JSON.stringify({ hashed, signature })
@@ -45,5 +48,5 @@ document.getElementById("verifyButton").addEventListener("click", async (event) 
     if(res.status != 200 || res.redirected)
         return;
 
-    console.log(await res.text())
+    // console.log(await res.text())
 })

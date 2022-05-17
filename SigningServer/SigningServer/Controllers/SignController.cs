@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.IO.Pipelines;
 using ProxyServer.Data;
 using System.Text;
-
+using ProxyServer.Models;
 
 namespace ProxyServer.Controllers
 {
@@ -52,31 +52,15 @@ namespace ProxyServer.Controllers
             Buffer.BlockCopy(signed_digest, 0, final_signature, 0, signed_digest.Length);
             Buffer.BlockCopy(ID_bytes, 0, final_signature, signed_digest.Length, ID_bytes.Length);
 
+            SignatureStatement statement = new SignatureStatement();
+            statement.MessageDigest = digest;
+            statement.UserId = id;
+            statement.Username = User.Identity.Name;
+            statement.SignedOn = DateTime.Now;
+            _context.SignatureStatement.Add(statement);
+            _context.SaveChanges();
+
             return Convert.ToBase64String(final_signature);
         }
-
-        /*
-        // [Authorize]
-        [HttpPost]
-        public string RequestSignature(string hash) {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:7096/api/Sign");
-
-                //HTTP POST
-                var postTask = client.PostAsJsonAsync<string>("hashed", hash);
-                postTask.Wait();
-
-                var result = postTask.Result;
-                if (result.IsSuccessStatusCode)
-                {
-                    return "Bravo";
-                }
-            }
-
-
-            return "hahaahha";
-        }
-        */
     }
 }
