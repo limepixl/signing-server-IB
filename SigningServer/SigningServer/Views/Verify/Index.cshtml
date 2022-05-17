@@ -1,0 +1,19 @@
+@model ProxyServer.Models.SignatureStatement
+
+@{
+    ViewData["Title"] = "Verify";
+}
+
+<div class="form-group">
+    <p>Upload file for verification:</p>
+    <div class="col-md-10 form-control">
+        <input type="file" name="Files" id="fileToVerify" /> 
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-md-10 form-control">
+    <button class="btn btn-primary" id="verifyButton">Verify</button>
+    </div>
+</div>
+
+<script type="module" src="./js/verify.js" ></script>

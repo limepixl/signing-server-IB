@@ -10,5 +10,12 @@ namespace ProxyServer.Controllers
         {
             return View();
         }
+
+        // [Authorize]
+        [HttpPost]
+        public string RequestVerification(string content) {
+            
+            return "UBIEC";
+        }
     }
 }
