@@ -10,7 +10,7 @@ namespace ProxyServer.Controllers
         {
             return View();
         }
-
+        
         // [Authorize]
         [HttpPost]
         public string RequestSignature(string content) {
