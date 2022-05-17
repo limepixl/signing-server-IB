@@ -64,6 +64,13 @@ body {
   flex-direction: column;
 }
 
+.signContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
 .verifyHeader > p {
   font-size: 2em;
   margin-bottom: 1em;
