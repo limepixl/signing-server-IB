@@ -4,16 +4,21 @@
     ViewData["Title"] = "Verify";
 }
 
-<div class="form-group">
-    <p>Upload file for verification:</p>
-    <div class="col-md-10 form-control">
-        <input type="file" name="Files" id="fileToVerify" /> 
+<div class="container verifyContainer">
+
+    <div class="verifyHeader">
+        <p>Upload .zip file for verification</p>
+
+        <div id="dropArea" class="dropzone">
+            <div class="dropHeader">
+                Drag and drop your .zip file here
+                <i class="fa-solid fa-file-import"></i>
+            </div>
+            <div class="dropBody"></div>
+        </div>
     </div>
-</div>
-<div class="form-group">
-    <div class="col-md-10 form-control">
+
     <button class="btn btn-primary" id="verifyButton">Verify</button>
-    </div>
 </div>
 
 <script type="module" src="./js/verify.js" ></script>

@@ -16,3 +16,56 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.footer {
+  margin-top: 200px;
+}
+
+#signButton {
+  align-self: center;
+  font-size: 1.7em;
+  padding: 0.5em;
+  padding-left: 2em;
+  padding-right: 2em;
+  border-radius: 2em;
+  margin-left: 1em;
+  align-self: center;
+}
+
+#verifyButton {
+  align-self: center;
+  font-size: 1.7em;
+  padding: 0.5em;
+  padding-left: 2em;
+  padding-right: 2em;
+  border-radius: 2em;
+  margin-left: 1em;
+  align-self: center;
+  margin-top: 1em;
+}
+
+.signHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin-top: 2em;
+}
+
+.signHeader > p {
+  font-size: 2em;
+  margin-bottom: 1em;
+}
+
+.verifyContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.verifyHeader > p {
+  font-size: 2em;
+  margin-bottom: 1em;
+  text-align: center;
+}

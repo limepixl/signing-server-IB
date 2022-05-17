@@ -1,10 +1,15 @@
 import "./jszip.js"
 import "./FileSaver.js";
 import { encode, hash } from './helpers.js'
+import AttachArea from "./attachArea.js";
 
 const currDate = new Date();
 const dateWithOffset = new Date(currDate.getTime() - currDate.getTimezoneOffset() * 60000);
 JSZip.defaults.date = dateWithOffset;
+
+let attachAreaRef = new AttachArea("div#dropArea", {
+    multiple: true
+})
 
 async function makePackage(files, signature) {
     
@@ -30,7 +35,7 @@ let filesEl = document.getElementById("filesToSign")
 
 document.getElementById("signButton").addEventListener("click", async (event) => {
     
-    let encoded = await encode(filesEl.files)
+    let encoded = await encode(attachAreaRef.getFiles())
 
     let hashed = await hash(encoded)
 
@@ -44,7 +49,7 @@ document.getElementById("signButton").addEventListener("click", async (event) =>
 
     let signature = (await res.text()) || "miki milane"
 
-    let zip = makePackage(filesEl.files, signature);
+    let zip = makePackage(attachAreaRef.getFiles(), signature);
 
 })
 

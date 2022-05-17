@@ -1,17 +1,23 @@
 import "./jszip.js"
 import "./FileSaver.js";
 import { hash } from './helpers.js'
+import AttachArea from "./attachArea.js";
 
-let fileInput = document.getElementById("fileToVerify")
+let attachAreaRef = new AttachArea("div#dropArea")
 
 document.getElementById("verifyButton").addEventListener("click", async (event) => {
 
-    let file = fileInput.files
+    let file = attachAreaRef.getFiles()
 
     if(file.length != 1)
         return
 
     file = file[0]
+
+    if(!file.name.endsWith(".zip")) {
+        alert("You can only verify zip files")
+        return
+    }
 
     let zip = new JSZip();
 

@@ -5,7 +5,7 @@ async function encode(files) {
 
     let reader = new FileReader();
 
-    let encoded = (await Promise.all(Array.from(files).map(f => {
+    let encoded = (await Promise.all(files.map(f => {
         return new Promise((resolve) => {
             const reader = new FileReader();
             reader.onload = () => {
