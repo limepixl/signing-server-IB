@@ -36,8 +36,12 @@ async function makePackage(files, signature) {
     let zip = new JSZip();
 
     for(let f of files) {
-        zip.file(f.name, f)
+        zip.file(f.name, f, {
+            date: f.lastModified
+        })
     }
+
+    zip.file("signature.nashsvet", signature)
 
     zip.generateAsync({type:"blob"}).then(function(content) {
         saveAs(content, "example.zip");
@@ -47,15 +51,21 @@ async function makePackage(files, signature) {
 
 let filesEl = document.getElementById("Files")
 
-filesEl.addEventListener("change", async (event) => {
+document.getElementById("signButton").addEventListener("click", async (event) => {
     
     let encoded = await encode(filesEl.files)
 
     let hashed = await hash(encoded)
 
-    // potpis zimanje
+    let res = await fetch("/Sign/RequestSignature", {
+        method: "POST",
+        body: hashed
+    })
 
-    let signature = "dsfy98sdhf3io2huimiqweh98asd"
+    if(res.status != 200)
+        return;
+
+    let signature = res.body || "miki milane"
 
     let zip = makePackage(filesEl.files, signature);
 

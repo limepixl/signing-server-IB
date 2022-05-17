@@ -37,11 +37,6 @@ namespace ProxyServer.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult UploadFile()
-        {
-            return View();
-        }
-
         //[Authorize]
         //[HttpPost]
         //public async Task<IActionResult> CreateSignatureStatement(SignatureStatement signatureStatement)
@@ -85,21 +80,21 @@ namespace ProxyServer.Controllers
         //     return sb.ToString();
         // }
 
-        [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> CreateSignatureStatement(SignatureStatement signatureStatement)
-        {
-            signatureStatement.UserId = _context.Users.Where(user => user.UserName == User.Identity.Name).SingleOrDefault().Id;
-            signatureStatement.Username = User.Identity.Name;
-            using (var md5 = MD5.Create())
-            {
-                using var stream = signatureStatement.Files[0].OpenReadStream();
-                var hash = md5.ComputeHash(stream);
-                signatureStatement.MessageDigest = BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
-            }
-            signatureStatement.SignedOn = DateTime.Now;
-            return View(signatureStatement);
-        }
+        // [Authorize]
+        // [HttpPost]
+        // public async Task<IActionResult> CreateSignatureStatement(SignatureStatement signatureStatement)
+        // {
+        //     signatureStatement.UserId = _context.Users.Where(user => user.UserName == User.Identity.Name).SingleOrDefault().Id;
+        //     signatureStatement.Username = User.Identity.Name;
+        //     using (var md5 = MD5.Create())
+        //     {
+        //         using var stream = signatureStatement.Files[0].OpenReadStream();
+        //         var hash = md5.ComputeHash(stream);
+        //         signatureStatement.MessageDigest = BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+        //     }
+        //     signatureStatement.SignedOn = DateTime.Now;
+        //     return View(signatureStatement);
+        // }
 
     }
 }
