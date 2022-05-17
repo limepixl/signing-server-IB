@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ProxyServer.Data;
+using System.Security.Cryptography;
 
 namespace ProxyServer
 {
@@ -8,6 +9,7 @@ namespace ProxyServer
     {
         public static void Main(string[] args)
         {
+
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.

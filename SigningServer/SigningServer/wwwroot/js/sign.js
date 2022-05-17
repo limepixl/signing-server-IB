@@ -39,6 +39,8 @@ document.getElementById("signButton").addEventListener("click", async (event) =>
 
     let hashed = await hash(encoded)
 
+    console.log(hashed);
+
     let res = await fetch("/Sign/RequestSignature", {
         method: "POST",
         body: hashed
