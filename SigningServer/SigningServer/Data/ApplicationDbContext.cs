@@ -12,5 +12,6 @@ namespace ProxyServer.Data
         {
         }
         public DbSet<ProxyServer.Models.SignatureStatement>? SignatureStatement { get; set; }
+        public DbSet<ProxyServer.Models.ServerKeyPair>? ServerKeyPair { get; set; }
     }
 }
