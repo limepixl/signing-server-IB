@@ -8,8 +8,8 @@
 /stefan_eksperimenti/ASPNET_Test/ASPNET_Test/.vs
 /stefan_eksperimenti/ASPNET_Test/ASPNET_Test/ASPNET_Test/bin/Debug/net6.0
 /stefan_eksperimenti/ASPNET_Test/ASPNET_Test/ASPNET_Test/obj
-/ProxyServer/.vs/ProxyServer
-/ProxyServer/ProxyServer/bin/Debug/net6.0
-/ProxyServer/ProxyServer/obj
+/SigningServer/.vs
+/SigningServer/SigningServer/bin/Debug/net6.0
+/SigningServer/SigningServer/obj
 .vscode/tasks.json
 .vscode/launch.json
