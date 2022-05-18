@@ -5,6 +5,7 @@ using ProxyServer.Data;
 using Newtonsoft.Json.Linq;
 using System.Text;
 using ProxyServer.Models;
+using System.Buffers.Text;
 
 namespace ProxyServer.Controllers
 {
@@ -32,16 +33,11 @@ namespace ProxyServer.Controllers
             return View();
         }
 
-        public IActionResult VerifyResult(string statement)
-        {
-            ViewBag.MainNav = statement;
-            _logger.Log(LogLevel.Information, statement.ToString());
-            return View();
-        }
-
         // [Authorize]
         [HttpPost]
-        public IActionResult RequestVerification() {
+        [Route("/Verify/RequestVerification")]
+        public string RequestVerification()
+        {
             StreamReader bodyStream = new StreamReader(HttpContext.Request.Body);
             Task<string> bodyText = bodyStream.ReadToEndAsync();
             bodyText.Wait();
@@ -51,37 +47,34 @@ namespace ProxyServer.Controllers
             JObject json = JObject.Parse(content);
             string digest = (string)json["hashed"];
             string signature = (string)json["signature"];
-            // _logger.Log(LogLevel.Information, "Digest: " + digest);
-            // _logger.Log(LogLevel.Information, "Signature: " + signature);
-
-            string id = _context.Users.Where(user => user.UserName == User.Identity.Name).SingleOrDefault().Id;
-
-            var signatureStatement = _context.SignatureStatement.Where(s => s.UserId == id && s.MessageDigest == digest);
+            _logger.Log(LogLevel.Information, "Digest: " + digest);
+            _logger.Log(LogLevel.Information, "Signature: " + signature);
 
             UnicodeEncoding byte_converter = new UnicodeEncoding();
             byte[] digest_bytes = byte_converter.GetBytes(digest);
             byte[] signed_digest = RSA.SignData(digest_bytes, SHA256.Create());
 
-            byte[] ID_bytes = byte_converter.GetBytes(id);
-            byte[] final_signature = new byte[signed_digest.Length + ID_bytes.Length];
-            Buffer.BlockCopy(signed_digest, 0, final_signature, 0, signed_digest.Length);
-            Buffer.BlockCopy(ID_bytes, 0, final_signature, signed_digest.Length, ID_bytes.Length);
-            
-            if (Equals(Convert.ToBase64String(final_signature), signature))
+            string new_signature = Convert.ToBase64String(signed_digest);
+            new_signature = new_signature.Remove(new_signature.Length - 1, 1);
+            _logger.Log(LogLevel.Information, "Sub Signature: " + new_signature);
+
+            if (signature.Contains(new_signature))
             {
-                string statement = Newtonsoft.Json.JsonConvert.SerializeObject(signatureStatement);
+                string decoded_signature = Encoding.UTF8.GetString(Convert.FromBase64String(signature));
+                string decoded_signer_id = decoded_signature.Remove(0, signed_digest.Length-7);
+                
+                _logger.Log(LogLevel.Information, $"Signer ID: {decoded_signer_id}");
+                var signatureStatement = _context.SignatureStatement.Where(s => s.UserId == decoded_signer_id && s.MessageDigest == digest).ToArray()[0];
+                _logger.Log(LogLevel.Information, "Signature statement: " + signatureStatement.ToString());
                 _logger.Log(LogLevel.Information, "VERIFIED");
-                return RedirectToAction("VerifyResult", new RouteValueDictionary( 
-                    new { 
-                        controller = "VerifyController", 
-                        action = "VerifyResult",
-                        statement = statement
-                    }
-                ));
+
+                string statement = Newtonsoft.Json.JsonConvert.SerializeObject(signatureStatement);
+                TempData["statement"] = statement;
+                return statement;
             }
 
             _logger.Log(LogLevel.Information, "NOT VERIFIED");
-            return RedirectToAction("Index");
+            return "NO";
         }
     }
 }
