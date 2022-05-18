@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using ProxyServer.Data;
-using ProxyServer.Models;
 
 namespace SigningServer.Controllers
 {

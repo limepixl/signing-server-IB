@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using System.Security.Cryptography;
-using Microsoft.AspNetCore.Mvc;
-using System.IO.Pipelines;
-using ProxyServer.Data;
-using System.Text;
-using ProxyServer.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
+using ProxyServer.Data;
+using ProxyServer.Models;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace ProxyServer.Controllers
 {
@@ -48,7 +46,7 @@ namespace ProxyServer.Controllers
             UnicodeEncoding byte_converter = new UnicodeEncoding();
             byte[] digest_bytes = byte_converter.GetBytes(digest);
             byte[] username_bytes = byte_converter.GetBytes(username);
-            
+
             byte[] to_be_signed = new byte[digest_bytes.Length + username_bytes.Length];
             Buffer.BlockCopy(digest_bytes, 0, to_be_signed, 0, digest_bytes.Length);
             Buffer.BlockCopy(username_bytes, 0, to_be_signed, digest_bytes.Length, username_bytes.Length);

@@ -1,11 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using System.Security.Cryptography;
-using ProxyServer.Data;
 using Newtonsoft.Json.Linq;
+using ProxyServer.Data;
+using System.Security.Cryptography;
 using System.Text;
-using ProxyServer.Models;
-using System.Buffers.Text;
 
 namespace ProxyServer.Controllers
 {

@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ProxyServer.Data;
-using System.Security.Cryptography;
 
 namespace ProxyServer
 {
