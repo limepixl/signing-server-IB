@@ -41,8 +41,6 @@ document.getElementById("signButton").addEventListener("click", async (event) =>
         body: hashed
     })
 
-    console.log(await res.text())
-
     if(res.status != 200 || res.redirected)
         return;
 
