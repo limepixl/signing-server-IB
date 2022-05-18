@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using ProxyServer.Data;
+using ProxyServer.Models;
 
 namespace SigningServer.Controllers
 {
@@ -17,9 +19,9 @@ namespace SigningServer.Controllers
         public IActionResult Index()
         {
             string statement = (string)TempData["statement"];
-            ViewBag.MainNav = statement;
+            var deserialized = JsonConvert.DeserializeObject<SignatureStatement>(statement);
             _logger.Log(LogLevel.Information, statement);
-            return View();
+            return View(deserialized);
         }
     }
 }

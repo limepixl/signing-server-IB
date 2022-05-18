@@ -1,16 +1,21 @@
-﻿@{
+﻿@model SignatureStatement
+
+@{
     ViewData["Title"] = "Display Verify result";
-    var signatureStatement = ViewBag.MainNav;
 }
 
-
 <h1>Verify Results</h1>
+<p>Signature ID</p>
+<p>@Model.Id</p>
+<p>User ID</p>
+<p>@Model.UserId</p>
+<p>User Name</p>
+<p>@Model.Username</p>
+<p>Files</p>
+<p>@Model.Files</p>
+<p>Digest</p>
+<p>@Model.MessageDigest</p>
+<p>Signed on</p>
+<p>@Model.SignedOn</p>
 
-<p>User Id</p>
-<p>signatureStatement.Id</p>
-<p>Username</p>
-<p>signatureStatement.Username</p>
-<p>Message Digest</p>
-<p>signatureStatement.MessageDigest</p>
-<p>DateTime</p>
-<p>signatureStatement.SignedOn.ToString()</p> 
+
