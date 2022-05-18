@@ -5,6 +5,7 @@ using System.IO.Pipelines;
 using ProxyServer.Data;
 using System.Text;
 using ProxyServer.Models;
+using Newtonsoft.Json.Linq;
 
 namespace ProxyServer.Controllers
 {
@@ -62,7 +63,9 @@ namespace ProxyServer.Controllers
 
             string base64signature = Convert.ToBase64String(final_signature);
 
-            return $"{{ {base64signature}, {id} }}";
+            JObject json = JObject.Parse("{ \"signature\" : \"" + base64signature + "\", \"user\": \"" + id + "\"}");
+            _logger.Log(LogLevel.Information, json.ToString());
+            return json.ToString();
         }
     }
 }
