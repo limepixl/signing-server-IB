@@ -63,7 +63,7 @@ namespace ProxyServer.Controllers
 
             string base64signature = Convert.ToBase64String(final_signature);
 
-            JObject json = JObject.Parse("{ \"signature\" : \"" + base64signature + "\", \"user\": \"" + id + "\"}");
+            JObject json = JObject.Parse("{ \"signature\" : \"" + base64signature + "\", \"user\": \"" + statement.Username + "\"}");
             _logger.Log(LogLevel.Information, json.ToString());
             return json.ToString();
         }
