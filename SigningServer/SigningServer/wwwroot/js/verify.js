@@ -31,22 +31,17 @@ document.getElementById("verifyButton").addEventListener("click", async (event) 
         promises.push(unzipped.file(f).async("base64"));
     })
     
-    let signature = await unzipped.file("signature.nashsvet").async("string")
+    let params = JSON.parse(await unzipped.file("signature.nashsvet").async("text"))
 
     let encoded = (await Promise.all(promises)).join()
 
     let hashed = await hash(encoded)
 
-    // console.log("encoded: " + encoded);
-    // console.log("hashed: " + hashed);
-
     let res = await fetch("/Verify/RequestVerification", {
         method: "POST",
-        body: JSON.stringify({ hashed, signature })
+        body: JSON.stringify({ hashed, user: params.user, signature: params.signature })
     }).then(response => response.json())
         .catch(err => alert("maybe some error occured"));
-
-    console.log("Brat");
 
     let resText = await res;
     console.log(resText);
