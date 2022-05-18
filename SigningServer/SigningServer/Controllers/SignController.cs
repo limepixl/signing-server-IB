@@ -43,25 +43,27 @@ namespace ProxyServer.Controllers
 
             string digest = bodyText.Result;
             string id = _context.Users.Where(user => user.UserName == User.Identity.Name).SingleOrDefault().Id;
+            string username = User.Identity.Name;
 
             UnicodeEncoding byte_converter = new UnicodeEncoding();
             byte[] digest_bytes = byte_converter.GetBytes(digest);
-            byte[] signed_digest = RSA.SignData(digest_bytes, SHA256.Create());
+            byte[] username_bytes = byte_converter.GetBytes(username);
+            
+            byte[] to_be_signed = new byte[digest_bytes.Length + username_bytes.Length];
+            Buffer.BlockCopy(digest_bytes, 0, to_be_signed, 0, digest_bytes.Length);
+            Buffer.BlockCopy(username_bytes, 0, to_be_signed, digest_bytes.Length, username_bytes.Length);
 
-            byte[] ID_bytes = byte_converter.GetBytes(id);
-            byte[] final_signature = new byte[signed_digest.Length + ID_bytes.Length];
-            Buffer.BlockCopy(signed_digest, 0, final_signature, 0, signed_digest.Length);
-            Buffer.BlockCopy(ID_bytes, 0, final_signature, signed_digest.Length, ID_bytes.Length);
+            byte[] signature = RSA.SignData(to_be_signed, SHA256.Create());
 
             SignatureStatement statement = new SignatureStatement();
             statement.MessageDigest = digest;
             statement.UserId = id;
-            statement.Username = User.Identity.Name;
+            statement.Username = username;
             statement.SignedOn = DateTime.Now;
             _context.SignatureStatement.Add(statement);
             _context.SaveChanges();
 
-            string base64signature = Convert.ToBase64String(final_signature);
+            string base64signature = Convert.ToBase64String(signature);
 
             JObject json = JObject.Parse("{ \"signature\" : \"" + base64signature + "\", \"user\": \"" + statement.Username + "\"}");
             _logger.Log(LogLevel.Information, json.ToString());

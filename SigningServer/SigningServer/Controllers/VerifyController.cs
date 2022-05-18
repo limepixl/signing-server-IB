@@ -45,32 +45,30 @@ namespace ProxyServer.Controllers
             string content = bodyText.Result;
 
             JObject json = JObject.Parse(content);
-            string digest = (string)json["hashed"];
+            string digest    = (string)json["hashed"];
+            string user      = (string)json["user"];
             string signature = (string)json["signature"];
             _logger.Log(LogLevel.Information, "Digest: " + digest);
+            _logger.Log(LogLevel.Information, "User: " + user);
             _logger.Log(LogLevel.Information, "Signature: " + signature);
 
             UnicodeEncoding byte_converter = new UnicodeEncoding();
             byte[] digest_bytes = byte_converter.GetBytes(digest);
-            byte[] signed_digest = RSA.SignData(digest_bytes, SHA256.Create());
+            byte[] username_bytes = byte_converter.GetBytes(user);
 
-            string new_signature = Convert.ToBase64String(signed_digest);
-            new_signature = new_signature.Remove(new_signature.Length - 1, 1);
-            _logger.Log(LogLevel.Information, "Sub Signature: " + new_signature);
+            byte[] to_be_signed = new byte[digest_bytes.Length + username_bytes.Length];
+            Buffer.BlockCopy(digest_bytes, 0, to_be_signed, 0, digest_bytes.Length);
+            Buffer.BlockCopy(username_bytes, 0, to_be_signed, digest_bytes.Length, username_bytes.Length);
 
-            if (signature.Contains(new_signature))
+            string new_signature = Convert.ToBase64String(RSA.SignData(to_be_signed, SHA256.Create()));
+            _logger.Log(LogLevel.Information, "Signature from file: " + signature);
+            _logger.Log(LogLevel.Information, "New Signature: " + new_signature);
+
+            if (Equals(signature, new_signature))
             {
-                string decoded_signature = Encoding.UTF8.GetString(Convert.FromBase64String(signature));
-                string decoded_signer_id = decoded_signature.Remove(0, signed_digest.Length-7);
-                
-                _logger.Log(LogLevel.Information, $"Signer ID: {decoded_signer_id}");
-                var signatureStatement = _context.SignatureStatement.Where(s => s.UserId == decoded_signer_id && s.MessageDigest == digest).ToArray()[0];
-                _logger.Log(LogLevel.Information, "Signature statement: " + signatureStatement.ToString());
                 _logger.Log(LogLevel.Information, "VERIFIED");
-
-                string statement = Newtonsoft.Json.JsonConvert.SerializeObject(signatureStatement);
-                TempData["statement"] = statement;
-                return statement;
+                TempData["signer"] = user;
+                return "YES";
             }
 
             _logger.Log(LogLevel.Information, "NOT VERIFIED");

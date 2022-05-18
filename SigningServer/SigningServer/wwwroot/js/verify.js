@@ -40,11 +40,12 @@ document.getElementById("verifyButton").addEventListener("click", async (event) 
     let res = await fetch("/Verify/RequestVerification", {
         method: "POST",
         body: JSON.stringify({ hashed, user: params.user, signature: params.signature })
-    }).then(response => response.json())
-        .catch(err => alert("maybe some error occured"));
+    })
 
-    let resText = await res;
-    console.log(resText);
-    if(resText != "NO")
-        window.location.href = "https://localhost:7096/VerifyResult";
+    let resText = await res.text();
+    //console.log(resText);
+    if (resText == "YES")
+        window.location.href = "https://localhost:7096/VerifyResult/Accept";
+    else if (resText == "NO")
+        window.location.href = "https://localhost:7096/VerifyResult/Deny";
 })

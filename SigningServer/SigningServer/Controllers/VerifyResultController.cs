@@ -16,12 +16,17 @@ namespace SigningServer.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Accept()
         {
-            string statement = (string)TempData["statement"];
-            var deserialized = JsonConvert.DeserializeObject<SignatureStatement>(statement);
-            _logger.Log(LogLevel.Information, statement);
-            return View(deserialized);
+            _logger.Log(LogLevel.Information, "Displaying Verification result");
+            string username = (string)TempData["signer"];
+            ViewBag.Name = username;
+            return View();
+        }
+
+        public IActionResult Deny()
+        {
+            return View();
         }
     }
 }
