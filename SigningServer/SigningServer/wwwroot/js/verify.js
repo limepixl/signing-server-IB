@@ -43,10 +43,13 @@ document.getElementById("verifyButton").addEventListener("click", async (event) 
     let res = await fetch("/Verify/RequestVerification", {
         method: "POST",
         body: JSON.stringify({ hashed, signature })
-    })
+    }).then(response => response.json())
+        .catch(err => alert("maybe some error occured"));
 
-    if(res.status != 200 || res.redirected)
-        return;
+    console.log("Brat");
 
-    // console.log(await res.text())
+    let resText = await res;
+    console.log(resText);
+    if(resText != "NO")
+        window.location.href = "https://localhost:7096/VerifyResult";
 })
