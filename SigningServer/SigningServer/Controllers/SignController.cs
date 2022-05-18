@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using ProxyServer.Data;
 using ProxyServer.Models;
@@ -31,6 +32,7 @@ namespace ProxyServer.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         [Route("/Sign/RequestSignature")]
         public string RequestSignature()

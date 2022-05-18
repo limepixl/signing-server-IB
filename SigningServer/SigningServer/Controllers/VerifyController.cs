@@ -30,7 +30,6 @@ namespace ProxyServer.Controllers
             return View();
         }
 
-        // [Authorize]
         [HttpPost]
         [Route("/Verify/RequestVerification")]
         public string RequestVerification()
