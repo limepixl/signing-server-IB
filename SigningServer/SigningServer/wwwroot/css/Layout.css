@@ -9,7 +9,7 @@ html {
 }
 
 body {
-/*    min-height: 100%;*/
+    min-height: 100%;
     font-family: 'Inconsolata', monospace;
     background-image: radial-gradient(circle, #1edcb6, #1dd6b1, #1dd0ac, #1ccaa7, #1bc4a2, #17bb9c, #14b196, #12a890, #109987, #128a7d, #157b72, #186d67);
     font-size: medium;

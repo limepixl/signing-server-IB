@@ -33,7 +33,7 @@
         color: #1abc9c;
     }
     h1{
-        font-size: xxx-large;
+        font-size: xx-large;
         font-weight: bold;
     }
     .footer{
@@ -47,11 +47,12 @@
 <div class="container d-flex justify-content-center" id="prev">
     <div class="col-md-4">
         <form method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
+            <div asp-validation-summary="All" class="text-danger">
                 <input asp-for="Input.Email" class="form-control" aria-required="true" />
-                <label asp-for="Input.Email" class="form-label"></label>
+@*                <label asp-for="Input.Email" class="form-label"></label>*@
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
+             </div>
+             <button type="submit" class="w-100 btn btn-lg">Resend</button>
         </form>
     </div>
 </div>

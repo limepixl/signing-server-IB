@@ -26,7 +26,7 @@ namespace ProxyServer.Controllers
 
             RSA.FromXmlString(privatePublicKeys);
         }
-
+        [Authorize]
         public IActionResult Index()
         {
             return View();
