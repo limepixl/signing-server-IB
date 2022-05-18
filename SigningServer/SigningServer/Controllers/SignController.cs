@@ -60,7 +60,9 @@ namespace ProxyServer.Controllers
             _context.SignatureStatement.Add(statement);
             _context.SaveChanges();
 
-            return Convert.ToBase64String(final_signature);
+            string base64signature = Convert.ToBase64String(final_signature);
+
+            return $"{{ {base64signature}, {id} }}";
         }
     }
 }
