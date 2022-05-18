@@ -11,7 +11,7 @@ let attachAreaRef = new AttachArea("div#dropArea", {
     multiple: true
 })
 
-async function makePackage(files, signature, user) {
+async function makePackage(files, reply, hashed) {
     
     let zip = new JSZip();
 
@@ -23,7 +23,7 @@ async function makePackage(files, signature, user) {
         })
     }
 
-    zip.file("signature.nashsvet", JSON.stringify({signature, user}))
+    zip.file("signature.nashsvet", JSON.stringify({...reply, hashed}))
 
     zip.generateAsync({type:"blob"}).then(function(content) {
         saveAs(content, "signed.zip");
@@ -41,11 +41,13 @@ document.getElementById("signButton").addEventListener("click", async (event) =>
         body: hashed
     })
 
+    console.log(await res.text())
+
     if(res.status != 200 || res.redirected)
         return;
 
-    let { signature, user } = await res.json()
+    let reply = await res.json()
 
-    makePackage(attachAreaRef.getFiles(), signature, user);
+    makePackage(attachAreaRef.getFiles(), reply, hashed);
 })
 
