@@ -45,15 +45,13 @@
     <h1 class="text-center">@ViewData["Title"]</h1>
     <h2 class="text-center text-muted fs-4">Enter your email.</h2>
 <div class="container d-flex justify-content-center" id="prev">
-     <div class="col-md-4">
+    <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-floating mb-3">
                 <input asp-for="Input.Email" class="form-control" aria-required="true" />
                 <label asp-for="Input.Email" class="form-label"></label>
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
-            <button type="submit" class="w-100 btn btn-lg">Resend</button>
         </form>
     </div>
 </div>

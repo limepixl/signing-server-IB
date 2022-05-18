@@ -31,25 +31,21 @@ document.getElementById("verifyButton").addEventListener("click", async (event) 
         promises.push(unzipped.file(f).async("base64"));
     })
     
-    let signature = await unzipped.file("signature.nashsvet").async("string")
+    let params = JSON.parse(await unzipped.file("signature.nashsvet").async("text"))
 
     let encoded = (await Promise.all(promises)).join()
 
     let hashed = await hash(encoded)
 
-    // console.log("encoded: " + encoded);
-    // console.log("hashed: " + hashed);
-
     let res = await fetch("/Verify/RequestVerification", {
         method: "POST",
-        body: JSON.stringify({ hashed, signature })
-    }).then(response => response.json())
-        .catch(err => alert("maybe some error occured"));
+        body: JSON.stringify({ hashed, user: params.user, signature: params.signature })
+    })
 
-    console.log("Brat");
-
-    let resText = await res;
-    console.log(resText);
-    if(resText != "NO")
-        window.location.href = "https://localhost:7096/VerifyResult";
+    let resText = await res.text();
+    //console.log(resText);
+    if (resText == "YES")
+        window.location.href = "https://localhost:7096/VerifyResult/Accept";
+    else if (resText == "NO")
+        window.location.href = "https://localhost:7096/VerifyResult/Deny";
 })

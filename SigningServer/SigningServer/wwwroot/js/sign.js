@@ -11,7 +11,7 @@ let attachAreaRef = new AttachArea("div#dropArea", {
     multiple: true
 })
 
-async function makePackage(files, signature) {
+async function makePackage(files, reply, hashed) {
     
     let zip = new JSZip();
 
@@ -23,24 +23,18 @@ async function makePackage(files, signature) {
         })
     }
 
-    zip.file("signature.nashsvet", signature)
+    zip.file("signature.nashsvet", JSON.stringify({...reply, hashed}))
 
     zip.generateAsync({type:"blob"}).then(function(content) {
-        saveAs(content, "example.zip");
+        saveAs(content, "signed.zip");
     });
 }
-
-
-let filesEl = document.getElementById("filesToSign")
 
 document.getElementById("signButton").addEventListener("click", async (event) => {
     
     let encoded = await encode(attachAreaRef.getFiles())
 
     let hashed = await hash(encoded)
-
-    // console.log("encoded: " + encoded);
-    // console.log("hashed: " + hashed);
 
     let res = await fetch("/Sign/RequestSignature", {
         method: "POST",
@@ -50,9 +44,8 @@ document.getElementById("signButton").addEventListener("click", async (event) =>
     if(res.status != 200 || res.redirected)
         return;
 
-    let signature = (await res.text()) || "miki milane"
+    let reply = await res.json()
 
-    let zip = makePackage(attachAreaRef.getFiles(), signature);
-
+    makePackage(attachAreaRef.getFiles(), reply, hashed);
 })
 

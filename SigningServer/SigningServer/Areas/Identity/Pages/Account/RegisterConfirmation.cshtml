@@ -35,10 +35,9 @@
     <h1 class="text-center">@ViewData["Title"]</h1>
 <div class="container d-flex justify-content-center" id="prev">
 
-    @{
+@{
     if (@Model.DisplayConfirmAccountLink)
     {
-<p class="text-center">
     This app does not currently have a real email sender registered, see <a href="https://aka.ms/aspaccountconf">these docs</a> for how to configure a real email sender.
     Normally this would be emailed: <a id="confirm-link" href="@Model.EmailConfirmationUrl">Click here to confirm your account</a>
 </p>

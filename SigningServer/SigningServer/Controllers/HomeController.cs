@@ -1,15 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProxyServer.Data;
 using ProxyServer.Models;
 using System.Diagnostics;
-using ProxyServer.Data;
-using System.Data;
-using Microsoft.AspNetCore.Authorization;
 using System.Security.Cryptography;
-using System.IO;
 
 namespace ProxyServer.Controllers
 {
-    //[Authorize]
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
