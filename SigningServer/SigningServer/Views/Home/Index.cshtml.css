@@ -1,5 +1,5 @@
 ﻿#body {
-    height: 75vh;
+/*    height: 75vh;*/
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,4 +24,9 @@
     color: #fff;
     background-color: #212529;
     border-color: #212529;
+}
+
+#body .btn-primary:focus, #body .btn-primary:active{
+    box-shadow: none;
+    border: 3px solid #1abc9c;
 }
