@@ -16,23 +16,30 @@ html {
   align-self: center;
   font-size: 1.7em;
   padding: 0.5em;
-  padding-left: 2em;
-  padding-right: 2em;
+  padding-left: 1.6em;
+  padding-right: 1.6em;
   border-radius: 2em;
   margin-left: 1em;
   align-self: center;
+}
+
+#signButton > i {
+  color: #1abc9c;
 }
 
 #verifyButton {
   align-self: center;
   font-size: 1.7em;
   padding: 0.5em;
-  padding-left: 2em;
-  padding-right: 2em;
+  padding-left: 1.6em;
+  padding-right: 1.6em;
   border-radius: 2em;
   margin-left: 1em;
   align-self: center;
-  margin-top: 1em;
+}
+
+#verifyButton > i {
+  color: #1abc9c;
 }
 
 .signHeader {
@@ -40,12 +47,13 @@ html {
   flex-direction: column;
   justify-content: center;
   text-align: center;
+  align-items: center;
   margin-top: 2em;
 }
 
 .signHeader > p {
   font-size: 2em;
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
 }
 
 .verifyContainer {
@@ -80,4 +88,9 @@ html {
 .signContainer .btn-primary:focus, #verifyButton:focus, .signContainer .btn-primary:active, #verifyButton:active {
     box-shadow: none;
     border: 2px solid white;
+}
+
+@keyframes loadingIcon {
+  from {color: #1abc9c;}
+  to {color: #212529;}
 }

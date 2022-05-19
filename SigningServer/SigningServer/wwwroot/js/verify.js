@@ -7,6 +7,10 @@ let attachAreaRef = new AttachArea("div#dropArea")
 
 document.getElementById("verifyButton").addEventListener("click", async (event) => {
 
+    let icon = document.getElementById("verifyButton").firstElementChild;
+    icon.style.animation = "loadingIcon 0.5s infinite alternate-reverse"
+    icon.nextSibling.textContent = " Verifying "
+
     let file = attachAreaRef.getFiles()
 
     if(file.length != 1)

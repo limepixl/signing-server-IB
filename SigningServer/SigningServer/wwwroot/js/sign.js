@@ -25,13 +25,16 @@ async function makePackage(files, reply, hashed) {
 
     zip.file("signature.nashsvet", JSON.stringify({...reply, hashed}))
 
-    zip.generateAsync({type:"blob"}).then(function(content) {
-        saveAs(content, "signed.zip");
-    });
+    let content = await zip.generateAsync({type:"blob"})
+    saveAs(content, "signed.zip");
 }
 
 document.getElementById("signButton").addEventListener("click", async (event) => {
-    
+
+    let icon = document.getElementById("signButton").firstElementChild
+    icon.nextSibling.textContent = " Signing "
+    icon.style.animation = "loadingIcon 0.5s infinite alternate-reverse"
+
     let encoded = await encode(attachAreaRef.getFiles())
 
     let hashed = await hash(encoded)
@@ -46,6 +49,8 @@ document.getElementById("signButton").addEventListener("click", async (event) =>
 
     let reply = await res.json()
 
-    makePackage(attachAreaRef.getFiles(), reply, hashed);
+    await makePackage(attachAreaRef.getFiles(), reply, hashed);
+    icon.style.removeProperty('animation')
+    icon.nextSibling.textContent = " Sign "
 })
 
