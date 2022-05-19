@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Certificate;
 using ProxyServer.Data;
 
 namespace ProxyServer
@@ -8,6 +9,9 @@ namespace ProxyServer
     {
         public static void Main(string[] args)
         {
+
+        Console.WriteLine("bi bi baguette");
+
 
             var builder = WebApplication.CreateBuilder(args);
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
@@ -19,7 +23,15 @@ namespace ProxyServer
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            // builder.Services.AddAuthentication(
+            //         CertificateAuthenticationDefaults.AuthenticationScheme)
+            //     .AddCertificate();
+
             builder.Services.AddControllersWithViews();
+
+            // var startup = new Startup(builder.Configuration);
+
+            // startup.ConfigureServices(builder.Services);
 
             var app = builder.Build();
 
@@ -35,7 +47,7 @@ namespace ProxyServer
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();

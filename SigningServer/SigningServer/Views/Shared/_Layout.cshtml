@@ -6,7 +6,7 @@
     <title>@ViewData["Title"] - Signing Server</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="SigningServer.styles.css" />
+     <link rel="stylesheet" href="~/SigningServer.styles.css" />
     <link href="@Url.Content("~/css/Layout.css")" rel="stylesheet" type="text/css" />@RenderSection("Styles", false)
     <link rel="stylesheet" href="~/css/attachArea.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/js/site.js" asp-append-version="true" />
@@ -14,7 +14,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark box-shadow mb-3">
             <div class="container-fluid">
                 <img class="img-fluid" src="~/content/server.png"/> 
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Signing Server</a>
@@ -42,7 +42,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-center bg-dark text-white align-items-baseline">
+    <footer class="footer text-center bg-dark text-white align-items-baseline">
         <div class="container">
             &copy; 2022 - Signing Server</a>
         </div>
