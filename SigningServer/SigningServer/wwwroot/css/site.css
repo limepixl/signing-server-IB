@@ -59,11 +59,25 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .verifyHeader > p {
   font-size: 2em;
   margin-bottom: 1em;
+  margin-top: 25px;
   text-align: center;
+}
+
+.signContainer .btn-primary, #verifyButton {
+    font-weight: bold;
+    color: #fff;
+    background-color: #212529;
+    border-color: #212529;
+    margin-top: 20px;
+}
+
+.signContainer .btn-primary:focus, #verifyButton:focus, .signContainer .btn-primary:active, #verifyButton:active {
+    box-shadow: none;
+    border: 2px solid white;
 }

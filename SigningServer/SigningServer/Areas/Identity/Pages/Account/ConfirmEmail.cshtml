@@ -4,5 +4,12 @@
     ViewData["Title"] = "Confirm email";
 }
 
-<h1>@ViewData["Title"]</h1>
+<style>
+    #mydiv{
+        margin-top: 5rem;
+    }
+</style>
+<div id="mydiv">
+<h1 class="fw-bold">@ViewData["Title"]</h1>
 <partial name="_StatusMessage" model="Model.StatusMessage" />
+</div>

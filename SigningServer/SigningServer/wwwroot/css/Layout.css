@@ -20,6 +20,10 @@ body {
     align-items: center;
 }
 
+ul.navbar-nav{
+    font-size: larger;
+}
+
 .navbar-brand {
     font-family: 'Koulen', cursive;
     color: gray;

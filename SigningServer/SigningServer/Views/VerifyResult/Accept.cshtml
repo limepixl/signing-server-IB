@@ -3,7 +3,37 @@
     var user_name = ViewBag.Name;
 }
 
-<h1>Signature is verified!</h1>
-<p>File(s) signed by signer with username: @user_name</p>
+<style>
+    #mydiv{
+        margin-top: 3rem; 
+        background-color: azure; 
+        border-radius: 3%; 
+        padding-top: 3rem; 
+        padding-bottom: 3rem;
+        font-size: larger;
+        width:55%;
+    }
+    .user{
+        color: #1abc9c;
+        font-weight: bold;
+        font-size: larger;
+    }
+    h1{
+        font-size: xx-large;
+        font-weight: bold;
+    }
+    .footer{
+        line-height: 60px;
+    }
+</style>
 
+<div id="mydiv" class="container-fluid">
+<div class="container justify-content-center" id="prev">
+    <h1 class="text-center">Signature is verified!</h1>
+    <hr>
+    <p class="text-center">File(s) signed by signer with username:</p>
+    <br />
+    <p class="user text-center">@user_name</p>
+</div>
+</div>
 
