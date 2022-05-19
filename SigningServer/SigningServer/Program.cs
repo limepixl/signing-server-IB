@@ -23,9 +23,9 @@ namespace ProxyServer
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            builder.Services.AddAuthentication(
-                    CertificateAuthenticationDefaults.AuthenticationScheme)
-                .AddCertificate();
+            // builder.Services.AddAuthentication(
+            //         CertificateAuthenticationDefaults.AuthenticationScheme)
+            //     .AddCertificate();
 
             builder.Services.AddControllersWithViews();
 
