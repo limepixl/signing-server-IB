@@ -8,19 +8,54 @@
         Layout = "/Areas/Identity/Pages/_Layout.cshtml";
     }
 }
+<style>
+    #mydiv{
+        margin-top: 3rem; 
+        background-color: azure; 
+        border-radius: 3%; 
+        padding-top: 3rem; 
+        padding-bottom: 3rem;
+        font-size: larger;
+        width:69%;
+    }
+    .btn, .btn:hover{
+        font-weight:bold; 
+        color:#fff; 
+        background-color: #212529; 
+        border-color: #212529;
+    }
+    .btn:focus, .btn:active, .form-control:focus{
+       box-shadow: none;
+       border: 3px solid #1abc9c;
+    }
+    a{
+        text-decoration: none; 
+        color: #1abc9c; 
+        font-weight: bold; 
+    }
+    a:hover{
+        color: #1abc9c;
+    }
+    h1{
+        font-size: xxx-large;
+        font-weight: bold;
+    }
+    .footer{
+        line-height: 60px;
+    }
+</style>
 
-<h1>Manage your account</h1>
-
-<div>
-    <h2>Change your account settings</h2>
-    <hr />
-    <div class="row">
-        <div class="col-md-3">
-            <partial name="_ManageNav" />
-        </div>
-        <div class="col-md-9">
+<div id="mydiv" class="container-fluid d-flex flex-row ">
+    <div class="col-md-3 mx-2">
+    <partial name="_ManageNav" />
+    </div>
+    <div class="col-md-9">
+            <h1 class="text-center">Manage your account</h1>
+    <div class="container text-center">
+        <div class="col-md">
             @RenderBody()
         </div>
+    </div>
     </div>
 </div>
 

@@ -1,7 +1,7 @@
 #dropArea {
-    height: 50vh;
+    min-height: 50vh;
     max-height: 80vh;
-    width: 40vw;
+    min-width: 40vw;
     padding: 1em;
     display: flex;
     justify-content: center;

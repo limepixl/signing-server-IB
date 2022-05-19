@@ -1,11 +1,11 @@
 ﻿#body {
-    height: 75vh;
+    min-height: 75vh;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 5px;
     background-color: azure;
-    border-radius: 3%;
+    border-radius: 3vmin;
     font-size: larger;
 }
 
@@ -24,6 +24,14 @@
     color: #fff;
     background-color: #212529;
     border-color: #212529;
+    border-radius: 10em;
+    padding-left: 1.2em;
+    padding-right: 1.2em;
+    font-size: 1.2em;
+}
+
+#body .btn-primary > i {
+    color: #1abc9c;
 }
 
 #body .btn-primary:focus, #body .btn-primary:active{
