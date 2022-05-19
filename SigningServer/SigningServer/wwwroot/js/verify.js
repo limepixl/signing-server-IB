@@ -8,8 +8,6 @@ let attachAreaRef = new AttachArea("div#dropArea")
 document.getElementById("verifyButton").addEventListener("click", async (event) => {
 
     let icon = document.getElementById("verifyButton").firstElementChild;
-    icon.style.animation = "loadingIcon 0.5s infinite alternate-reverse"
-    icon.nextSibling.textContent = " Verifying "
 
     let file = attachAreaRef.getFiles()
 
@@ -23,6 +21,9 @@ document.getElementById("verifyButton").addEventListener("click", async (event) 
         return
     }
 
+    icon.style.animation = "loadingIcon 0.5s infinite alternate-reverse"
+    icon.nextSibling.textContent = " Verifying "
+
     let zip = new JSZip();
 
     let unzipped = await zip.loadAsync(file)
@@ -30,12 +31,21 @@ document.getElementById("verifyButton").addEventListener("click", async (event) 
     let promises = [];
 
     unzipped.forEach(f => {
-        if(f == 'signature.nashsvet')
+        if(f == '.custom.signature')
             return
         promises.push(unzipped.file(f).async("base64"));
     })
     
-    let params = JSON.parse(await unzipped.file("signature.nashsvet").async("text"))
+    let params;
+    
+    try {
+        params = JSON.parse(await unzipped.file(".custom.signature").async("text"))
+    } catch(e) {}
+
+    if(!params) {
+        window.location.href = "/VerifyResult/Deny";
+        return
+    }
 
     let encoded = (await Promise.all(promises)).join()
 

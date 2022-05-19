@@ -12,6 +12,26 @@ function AttachArea(selector, options) {
     })
 
     this.render()
+    this.hiddenInput = document.getElementById("hiddenFilePicker");
+
+    this.element.onclick = () => {
+        this.hiddenInput.click();
+    }
+
+    this.hiddenInput.onchange = () => {
+        let files = Array.from(this.hiddenInput.files)
+        if(files.length == 0)
+            return;
+        for(let f of files) {
+            if(this.files.find(x => x.name == f.name)) {
+                alert("Already attached file with that name")
+                return
+            }
+            this.files.push(f)
+        }
+        this.hiddenInput.value = null;
+        this.render();
+    }
 }
 
 AttachArea.prototype.getFiles = function() {
@@ -61,7 +81,8 @@ AttachArea.prototype.render = function() {
         title.textContent = f.name
         let remove = document.createElement("i")
         remove.className = "dropFileRemove fa-solid fa-trash-can"
-        remove.onclick = () => {
+        remove.onclick = (event) => {
+            event.stopPropagation()
             this.removeFile(f)
         }
         el.appendChild(title)

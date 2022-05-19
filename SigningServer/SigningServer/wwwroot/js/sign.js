@@ -23,7 +23,7 @@ async function makePackage(files, reply, hashed) {
         })
     }
 
-    zip.file("signature.nashsvet", JSON.stringify({...reply, hashed}))
+    zip.file(".custom.signature", JSON.stringify({...reply, hashed}))
 
     let content = await zip.generateAsync({type:"blob"})
     saveAs(content, "signed.zip");
