@@ -4,24 +4,65 @@
     ViewData["Title"] = "Recovery code verification";
 }
 
-<h1>@ViewData["Title"]</h1>
-<hr />
-<p>
+<style>
+    #mydiv{
+        margin-top: 3rem; 
+        background-color: azure; 
+        border-radius: 3%; 
+        padding-top: 3rem; 
+        padding-bottom: 3rem;
+        font-size: larger;
+        width:69%;
+    }
+    .btn, .btn:hover{
+        font-weight:bold; 
+        color:#fff; 
+        background-color: #212529; 
+        border-color: #212529;
+    }
+    .btn:focus, .btn:active, .form-control:focus{
+       box-shadow: none;
+       border: 3px solid #1abc9c;
+    }
+    a{
+        text-decoration: none; 
+        color: #1abc9c; 
+        font-weight: bold; 
+    }
+    a:hover{
+        color: #1abc9c;
+    }
+    h1{
+        font-size: xxx-large;
+        font-weight: bold;
+    }
+    .footer{
+        line-height: 60px;
+    }
+</style>
+
+
+<div id="mydiv" class="container-fluid">
+    <h1 class="text-center">@ViewData["Title"]</h1>
+<div class="container" id="prev">
+    <p>
     You have requested to log in with a recovery code. This login will not be remembered until you provide
     an authenticator app code at log in or disable 2FA and log in again.
 </p>
-<div class="row">
-    <div class="col-md-4">
+<div class="container-fluid w-75">
+    <div class="col-md">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-floating">
-                <input asp-for="Input.RecoveryCode" class="form-control" autocomplete="off" />
+                <input asp-for="Input.RecoveryCode" class="form-control mb-3" autocomplete="off" />
                 <label asp-for="Input.RecoveryCode" class="form-label"></label>
                 <span asp-validation-for="Input.RecoveryCode" class="text-danger"></span>
             </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+            <button type="submit" class="w-100 btn btn-lg">Log in</button>
         </form>
     </div>
+</div>
+</div>
 </div>
 
 @section Scripts {
