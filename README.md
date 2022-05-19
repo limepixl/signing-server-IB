@@ -1,25 +1,8 @@
-smrt
+An implementation of a secure ASP.NET server that can be used by users to delegate the process of signature creation and verification. 
 
-Eooo, Eooo... I have no magic lamp
-Eooo, Eooo... I believe in fairytales
-Eooo, Eooo... But I have a magic song, I call it "Eooo"
- 
-I had some tea in England,
-In Italy I ate Pizza,
-In Paris I saw the Eiffel Tower,
-Then the leaning tower of Pisa.
- 
-The journey took me all the way
-To Germany and Norway
-To China, Russia, Cyprus
-To Belarus and Belgium
- 
-Eooo Eooo,Čiribа, čiriba, čiribu
-Eooo Eooo,Čiribа, čiriba, čiribu
-This song is magical, it takes me far away
-But I always come back home no matter what they say
- 
-Eooo Eooo,Čiribа, čiriba, čiribu
-Eooo Eooo,Čiribа, čiriba, čiribu
-This song is magical, it takes me far away
-https://lyricstranslate.com
+### Usage:
+- Signature creation
+    - If you want to create a signature, you need to register an account. For security, Two Factor Authentication, alongside a strong password, is required in order to create signatures of multiple documents. 
+    - Upload your files, click on "Sign" and receive your signature in the form of a ZIP archive, that contains your files and a signature that is tied to your account.
+- Verification
+    - In order to verify a signature, an account is not needed. You upload the signature ZIP archive, and if the signature has not been tampered with, you will receive the signer's identity as a result.
