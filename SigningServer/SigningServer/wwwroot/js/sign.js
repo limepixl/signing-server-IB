@@ -41,10 +41,17 @@ document.getElementById("signButton").addEventListener("click", async (event) =>
         body: hashed
     })
 
+    let replyText = await res.text();
+    if (replyText == "NO_2FA")
+    {
+        window.location.href = "https://localhost:7096/Identity/Account/Manage/TwoFactorAuthentication";
+        return;
+    }
+
     if(res.status != 200 || res.redirected)
         return;
 
-    let reply = await res.json()
+    let reply = JSON.parse(replyText);
 
     makePackage(attachAreaRef.getFiles(), reply, hashed);
 })

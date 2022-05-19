@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using ProxyServer.Data;
@@ -37,6 +38,12 @@ namespace ProxyServer.Controllers
         [Route("/Sign/RequestSignature")]
         public string RequestSignature()
         {
+            bool has2fa = _context.Users.Where(user => user.UserName == User.Identity.Name).SingleOrDefault().TwoFactorEnabled;
+            if(!has2fa)
+            {
+                return "NO_2FA";
+            }
+
             StreamReader bodyStream = new StreamReader(HttpContext.Request.Body);
             Task<string> bodyText = bodyStream.ReadToEndAsync();
             bodyText.Wait();
