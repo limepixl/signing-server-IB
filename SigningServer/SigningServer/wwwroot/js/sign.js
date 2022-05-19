@@ -46,7 +46,7 @@ document.getElementById("signButton").addEventListener("click", async (event) =>
 
     let replyText = await res.text();
     if (replyText == "NO_2FA") {
-        window.location.href = "https://localhost:7096/Identity/Account/Manage/TwoFactorAuthentication";
+        window.location.href = "/Identity/Account/Manage/TwoFactorAuthentication";
         return;
     }
 
