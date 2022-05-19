@@ -45,7 +45,7 @@ document.getElementById("verifyButton").addEventListener("click", async (event) 
     let resText = await res.text();
     //console.log(resText);
     if (resText == "YES")
-        window.location.href = "https://localhost:7096/VerifyResult/Accept";
+        window.location.href = "/VerifyResult/Accept";
     else if (resText == "NO")
-        window.location.href = "https://localhost:7096/VerifyResult/Deny";
+        window.location.href = "/VerifyResult/Deny";
 })
