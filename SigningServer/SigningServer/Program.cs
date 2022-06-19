@@ -9,10 +9,6 @@ namespace ProxyServer
     {
         public static void Main(string[] args)
         {
-
-        Console.WriteLine("bi bi baguette");
-
-
             var builder = WebApplication.CreateBuilder(args);
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
 
